@@ -1,6 +1,5 @@
 {
   "audit_date": "2026-10-16",
-  "remote_updated": false,
   "files": [
     {
       "repo": "skin-lesion-segmentation-vm-unet",
@@ -239,5 +238,6 @@
       "bytes": 9484,
       "reason": "original source"
     }
-  ]
+  ],
+  "scope": "Source-file recovery manifest; current remote status is recorded in the workspace verification log."
 }
