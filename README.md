@@ -17,4 +17,4 @@ The Optuna script minimizes checkpoint validation loss. The smallest stored obje
 ## Attribution and execution
 The implementation derives from VM-UNet and is not claimed as an architecture invented by this student team. Its original README, authorship and Apache-2.0 licence are preserved in `third_party/vm-unet/`. `train_new.py`, `dataset_new.py` and `hyperparameter_tuning.py` are present in the supplied course archive; without a pinned upstream comparison, exact authorship of each edit is not asserted.
 
-Follow the bundled upstream README for environment/data setup and review course-specific configurations before execution. Dataset and pretrained weights must be obtained separately; no clinical diagnostic performance is claimed. This is a private academic portfolio repository.
+Follow the bundled upstream README for environment/data setup and review course-specific configurations before execution. Dataset and pretrained weights must be obtained separately; no clinical diagnostic performance is claimed. This is a public academic portfolio repository.
