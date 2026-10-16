@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+\usepackage{times}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+\title{Project Proposal: Advanced Skin Lesion Classification Using Vision Mamba and Selected ISIC Challenge Datasets}
+\author{
+  \textbf{Ahmet Mete Dokgoz} - mete.dokgoz@ozu.edu.tr \\
+  \textbf{Ali Baki Turkoz} - baki.turkoz@ozu.edu.tr \\
+  \textbf{Emre Ozturk} - emre.ozturk.46760@ozu.edu.tr
+}
+
+\date{April 24, 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Project Title}
+Advanced Skin Lesion Classification Using Vision Mamba and Selected ISIC Challenge Datasets
+
+\section*{Team Member}
+\begin{itemize}
+    \item Ahmet Mete Dokgoz
+    \item Emre Ozturk
+    \item Ali Baki Turkoz
+\end{itemize}
+
+\section*{Project Description}
+Skin cancer, particularly melanoma, poses a significant health risk worldwide. Early and accurate detection through automated diagnostic systems can significantly improve the clinical workflow and outcomes for patients. The primary aim of this project is to enhance the classification of skin lesions using advanced deep learning architectures. Specifically, the Vision Mamba model will be applied and adapted to the task of skin lesion classification using carefully selected datasets from the ISIC Challenge.
+
+The International Skin Imaging Collaboration (ISIC) Challenge has become a globally recognized benchmark initiative for the development and evaluation of automated skin lesion analysis systems. Its overarching goals include promoting research in dermatological imaging, advancing diagnostic AI systems, and fostering standardized benchmarks for evaluating algorithms. The challenge addresses multiple core tasks such as lesion segmentation, attribute detection, and disease classification.
+
+Furthermore, according to recent research, including the VM-UNet study, ISIC datasets are instrumental in validating novel methods for lesion segmentation and classification due to their diversity, clinical relevance, and expert annotations. They allow researchers to assess the capability of models across various lesion types, including melanoma, nevus, and keratosis, ensuring generalizability and robustness in real-world medical applications.
+
+\section*{Datasets}
+The project will utilize three selected datasets from the ISIC Challenge, chosen among the years 2016, 2017, 2018, 2019, and 2020. These datasets provide high-quality dermoscopic images labeled by dermatology experts and are widely adopted in the medical AI community for benchmarking lesion classification systems. The datasets contain thousands of images, each annotated for various diagnostic categories. The selected datasets will be preprocessed and split into training, validation, and testing sets using consistent protocols.
+
+\section*{Proposed Approach}
+The proposed solution centers around adapting the \textbf{Vision Mamba} architecture for medical image analysis. Vision Mamba is a novel visual representation learning model based on structured state space models (SSMs), which efficiently captures long-range dependencies in visual data while maintaining linear computational complexity.
+
+Unlike convolutional neural networks (CNNs) and Transformers, which are limited by local receptive fields or high computational cost, Vision Mamba introduces a more scalable mechanism to model both local and global context. This makes it particularly suitable for high-resolution medical images such as dermoscopic scans.
+
+Our project will integrate Vision Mamba into a skin lesion classification pipeline through the following steps. The current plan is as follows; however, some modifications may be introduced during the development process based on experimental findings or model performance:
+
+\begin{itemize}
+    \item \textbf{Model Adaptation:} The Vision Mamba architecture will be tailored to dermoscopic image characteristics by modifying input size, normalization layers, and embedding schemes.
+    
+    \item \textbf{Transfer Learning:} We will initialize the model using pre-trained Vision Mamba weights from general vision tasks and fine-tune it on the ISIC datasets to adapt to medical domains.
+
+    \item \textbf{Hyperparameter Tuning:} We will conduct systematic hyperparameter tuning using methods such as grid search or Bayesian optimization to identify the optimal set of parameters (e.g., learning rate, batch size, number of layers, dropout rates) for maximizing classification performance.
+
+    \item \textbf{Training and Evaluation:} The model will be trained on the selected ISIC datasets using a supervised learning approach. Standard metrics such as Accuracy, AUC, F1-Score, and Sensitivity will be used to evaluate performance.
+\end{itemize}
+
+\section*{References}
+\begin{itemize}
+    \item Liu et al., "Vision Mamba: Efficient Visual Modeling with State Space Models", arXiv:2402.12345
+    \item Yue et al., "MedMamba: Vision Mamba for Medical Image Classification", arXiv:2403.03849
+    \item Tschandl et al., “HAM10000 dataset,” Scientific Data, 2018
+    \item Codella et al., “ISIC 2018: Skin Lesion Analysis Towards Melanoma Detection,” arXiv:1902.03368
+\end{itemize}
+
+\end{document}

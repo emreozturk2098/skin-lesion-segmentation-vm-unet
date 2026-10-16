@@ -1,0 +1,243 @@
+{
+  "audit_date": "2026-10-16",
+  "remote_updated": false,
+  "files": [
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/frog.jpg",
+      "path": "reports/original/frog.jpg",
+      "status": "added",
+      "sha256": "2913cb8ca0c77173737a5f2d0c9b80c0034e09a6c8708af1a8737dfcd8e8bc44",
+      "bytes": 97080
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/main.tex",
+      "path": "reports/original/main.tex",
+      "status": "added",
+      "sha256": "3bf3b75882790f59be9c4bf3290c440930d84ead385a4dbc84fbbdf786139483",
+      "bytes": 5142
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/sample.bib",
+      "path": "reports/original/sample.bib",
+      "status": "added",
+      "sha256": "8749e6a3009dbbdc5886644c8de1eb8ad98c993cb0613ee349b7b31e83750dd1",
+      "bytes": 244
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/Sunum ABT.pptx",
+      "path": "reports/original/Sunum ABT.pptx",
+      "status": "added",
+      "sha256": "b6baf7da05b5a835c88c19be0cf384fecb5b4eee9828d35856538c5dc282e8f7",
+      "bytes": 175294
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/Sunum, EÖ.pptx",
+      "path": "reports/original/Sunum, EÖ.pptx",
+      "status": "added",
+      "sha256": "538d67c8670e2a53cc67110b97e7b5fcc483166afa28063b2cb6dff6772f4716",
+      "bytes": 217198
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/LICENSE",
+      "path": "third_party/vm-unet/LICENSE",
+      "status": "added",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/README.md",
+      "path": "third_party/vm-unet/README.md",
+      "status": "added",
+      "sha256": "949c01c6d926de3aa401e7d1f41242836af9924a435a7f55543594951534d42b",
+      "bytes": 4287
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/configs/config_setting.py",
+      "path": "third_party/vm-unet/configs/config_setting.py",
+      "status": "added",
+      "sha256": "ddba45afcd4d1079e7c710c6244ebdd90ea4c5aee4159ae6dc88586c981b60ea",
+      "bytes": 9081
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/configs/config_setting_synapse.py",
+      "path": "third_party/vm-unet/configs/config_setting_synapse.py",
+      "status": "added",
+      "sha256": "c6d57cb6905b4d9a11cb7df9b357464a878e062cb98139e2ccd5055cf561665f",
+      "bytes": 8579
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/data/README.md",
+      "path": "third_party/vm-unet/data/README.md",
+      "status": "added",
+      "sha256": "b4e8855b43f0cacc673b9b919879d6725155cf671d6b6e77beede8eb507463bc",
+      "bytes": 32
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/datasets/dataset.py",
+      "path": "third_party/vm-unet/datasets/dataset.py",
+      "status": "added",
+      "sha256": "4f3a6620aad26687a0e2dd942461b294332ee3d5bc1fd25c0590dec70b2f1e1b",
+      "bytes": 4357
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/datasets/dataset_new.py",
+      "path": "third_party/vm-unet/datasets/dataset_new.py",
+      "status": "added",
+      "sha256": "f04082857824caa3fe628240602fbb8680ca523cada56232b0315dc656959c88",
+      "bytes": 3591
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/engine.py",
+      "path": "third_party/vm-unet/engine.py",
+      "status": "added",
+      "sha256": "67b5d6ba16571642f9cac539d5ab6a67dd396a2e2d788333a7905f154fc036ed",
+      "bytes": 6307
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/engine_synapse.py",
+      "path": "third_party/vm-unet/engine_synapse.py",
+      "status": "added",
+      "sha256": "b13a30866910e51082eac7ece00455b57cb25783c727585b7c88b78451128890",
+      "bytes": 3687
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/hyperparameter_tuning.py",
+      "path": "third_party/vm-unet/hyperparameter_tuning.py",
+      "status": "added",
+      "sha256": "1845ae0c65f24e8b28a07b9e1ce4c73aa52a872302ab351e8149313ea99d770f",
+      "bytes": 3081
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/models/vmunet/vmamba.py",
+      "path": "third_party/vm-unet/models/vmunet/vmamba.py",
+      "status": "added",
+      "sha256": "868ede18da3e973154c39d91da786cc0f6e68d13bde5f7e16ca4263d5677fabc",
+      "bytes": 31276
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/models/vmunet/vmunet.py",
+      "path": "third_party/vm-unet/models/vmunet/vmunet.py",
+      "status": "added",
+      "sha256": "b5a259d2c4fd119564a7cb69bf0848a02f28cc9043d84f3d1066b1d75bb5adc5",
+      "bytes": 3372
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/optuna_study_report.csv",
+      "path": "results/optuna_study_report.csv",
+      "status": "added",
+      "sha256": "cbffd7acbc641e96fd1d6d20cfac90e987a341adf516be5bf2c90d2f432e1edb",
+      "bytes": 951
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/pre_trained_weights/README.md",
+      "path": "third_party/vm-unet/pre_trained_weights/README.md",
+      "status": "added",
+      "sha256": "7276d30d9553ce8ebb298ea71f46466570cc2d1a5c748876337d820491cc3ca4",
+      "bytes": 228
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/report.txt",
+      "path": "reports/archived_report.tex",
+      "status": "added",
+      "sha256": "f91b136c4d10a61ddbe54e20831532f01f82575e54e336103f6535d706800c8e",
+      "bytes": 18375
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/train.py",
+      "path": "third_party/vm-unet/train.py",
+      "status": "added",
+      "sha256": "3848c00f2ccca4c1770fb7a66322646d2f4987e580602b1c059d7237a89bf4fa",
+      "bytes": 8139
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/train_new.py",
+      "path": "third_party/vm-unet/train_new.py",
+      "status": "added",
+      "sha256": "9b41fe8297e26a53b67729805c10f5331e38de2de0a55f6f412c58c5483813ba",
+      "bytes": 6519
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/train_synapse.py",
+      "path": "third_party/vm-unet/train_synapse.py",
+      "status": "added",
+      "sha256": "a2adebc05c2ba4c10684540d4c5aebbafc27b0bbc741b2c8f21280f5e2599261",
+      "bytes": 7605
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA\\CS554_Project\\vm-unet-main (1).zip!vm-unet-main/utils.py",
+      "path": "third_party/vm-unet/utils.py",
+      "status": "added",
+      "sha256": "3dac0a6dee53a53ff080b1e59c46c0eafb01144ab9d51e0bb6e1573d2dea2ac2",
+      "bytes": 26526
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/CS454_554_Project_Proposal.pdf",
+      "path": "reports/original/CS454_554_Project_Proposal.pdf",
+      "status": "added",
+      "sha256": "ccfb311cf7da0ed9eb1c80e949ba994bf5a234a7e487f214e4141915f38f2d04",
+      "bytes": 38567,
+      "reason": "original source"
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/CS554 Project Proposal TR.docx",
+      "path": "reports/original/CS554 Project Proposal TR.docx",
+      "status": "added",
+      "sha256": "15b7bed6c9ea5119c3463be148c7b075b32d160c32f7dc60d572dee8cd26b7b5",
+      "bytes": 322646,
+      "reason": "original source"
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/CS554_Project_Proposal.docx",
+      "path": "reports/original/CS554_Project_Proposal.docx",
+      "status": "added",
+      "sha256": "118b77678fa3fcc6408185d035d830d189f2d56fe92952e0a3bda817cc8504d9",
+      "bytes": 568103,
+      "reason": "original source"
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/CS554_Project_Proposal.pdf",
+      "path": "reports/original/CS554_Project_Proposal.pdf",
+      "status": "added",
+      "sha256": "4be26f8e2b9689cc34394852af0dd817458e46563116eaf9fab5326b950c1eec",
+      "bytes": 190688,
+      "reason": "original source"
+    },
+    {
+      "repo": "skin-lesion-segmentation-vm-unet",
+      "source": "CS554_ProjectCS554_Introduction To ML and ANN's_ETHEM_HOCA/CS554_Project/Sunum Speech Litaretür.docx",
+      "path": "reports/original/Sunum Speech Litaretür.docx",
+      "status": "added",
+      "sha256": "dc39fec2e22bc672a1fc636536714dfca10a8791af3952561811d423c76029df",
+      "bytes": 9484,
+      "reason": "original source"
+    }
+  ]
+}

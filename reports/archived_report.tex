@@ -1,0 +1,185 @@
+% !TEX TS-program = latexmk
+\documentclass[conference]{IEEEtran}
+
+% Packages for formatting and references
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+\title{VSSM-UNet: Vision State Space Model Based U-Net for Medical Image Segmentation}
+
+\author{
+\IEEEauthorblockN{Ahmet Mete Dokgoz}
+\IEEEauthorblockA{
+Department of Computer Science\\
+Ozyegin University\\
+Istanbul, Turkey\\
+mete.dokgoz@ozu.edu.tr}
+\and
+\IEEEauthorblockN{Emre Ozturk}
+\IEEEauthorblockA{
+Department of Computer Science\\
+Ozyegin University\\
+Istanbul, Turkey\\
+emre.ozturk.46760@ozu.edu.tr}
+\and
+\IEEEauthorblockN{Ali Baki Turkoz}
+\IEEEauthorblockA{
+Department of Computer Science\\
+Ozyegin University\\
+Istanbul, Turkey\\
+baki.turkoz@ozu.edu.tr}
+}
+
+\maketitle
+
+\begin{abstract}
+In the field of medical image segmentation, convolutional neural networks (CNNs) and Transformer-based models have dominated research for years. However, CNNs often struggle with modeling long-range dependencies due to their inherently local receptive fields, while Transformers suffer from quadratic computational complexity, particularly problematic in high-resolution dense prediction tasks. Recently, State Space Models (SSMs), such as Mamba, have emerged as a promising alternative, offering linear complexity while effectively capturing long-range interactions. In this work, we propose \textbf{VSSM-UNet}, a U-shaped architecture built purely on Visual State Space Modules (VSSM) without convolutional or self-attention layers, designed for efficient and accurate medical image segmentation. Our method integrates hierarchical encoder–decoder structures with skip connections, patch merging/expansion, and efficient context aggregation through selective state-space scanning. We extensively evaluate VSSM-UNet on the ISIC 2016, 2017, and 2018 skin lesion segmentation datasets, achieving superior Dice and IoU scores compared to recent CNN-, Transformer-, and hybrid-based baselines. Our results highlight the potential of pure SSM-based architectures for advancing dense prediction tasks in medical imaging.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Medical image segmentation, state-space model, U-Net, ISIC dataset, Optuna
+\end{IEEEkeywords}
+
+\section{Introduction}
+Medical image segmentation plays a crucial role in computer-aided diagnosis, enabling precise delineation of anatomical structures or pathological regions such as skin lesions. Accurate segmentation significantly impacts clinical decision-making by supporting early detection and treatment planning. Traditional convolutional neural networks (CNNs) like U-Net \cite{ronneberger2015} have long been the foundation of medical image segmentation, offering efficient feature extraction and strong spatial localization. However, CNNs are fundamentally limited in their ability to model long-range dependencies due to their local receptive field, often requiring deep architectures or large kernels to approximate global context, leading to high computational overhead.
+
+Transformers, inspired by their success in natural language processing, have been adapted for vision tasks to overcome these locality constraints \cite{chen2021}. Vision Transformer (ViT) and its successors introduced global attention mechanisms that capture relationships across the entire image. While powerful, these models suffer from \(\mathcal{O}(N^2)\) computational and memory complexity with respect to the input size, posing challenges for large medical images requiring dense predictions.
+
+In light of these limitations, State Space Models (SSMs) have recently attracted considerable attention \cite{gu2023}. Originally developed for sequence modeling, SSMs like Mamba achieve linear complexity with respect to input length while maintaining the ability to model long-range dependencies effectively. Their successful adaptation to vision tasks through architectures like Vision Mamba and VMamba \cite{liu2024} suggests that SSMs can combine the benefits of CNNs (local precision) and Transformers (global context) in a computationally efficient manner.
+
+In this work, we introduce \textbf{VSSM-UNet}, the first fully SSM-based U-shaped architecture tailored for medical image segmentation. By embedding Visual State-Space Modules (VSSM) throughout the encoder and decoder, we replace every convolution and attention layer with selective state-space operations, achieving efficient global context modeling with linear complexity. Additionally, we integrate patch embedding, hierarchical feature extraction, patch merging/expansion layers, and skip connections, preserving U-Net’s advantages while unlocking new scalability. We validate our model on the ISIC 2016, 2017, and 2018 benchmarks, demonstrating that VSSM-UNet achieves competitive or superior performance compared to CNN, Transformer, and hybrid baselines. Our work establishes a baseline for pure SSM-based architectures in medical image segmentation and paves the way for future innovations in this promising direction.
+
+\section{Related Works}
+A wide spectrum of methodological paradigms has been explored for medical image segmentation, each motivated by the need to balance fine-grained spatial precision with an ability to reason about global context.  We group the most influential research into three families—\emph{convolutional neural networks (CNNs)}, \emph{Vision Transformers}, and, most recently, \emph{state–space models (SSMs)}—and summarize their core innovations, limitations, and relevance to our proposed architecture.
+
+\subsection{CNN-based Models}
+Early computer-aided diagnosis pipelines relied on hand-crafted features combined with classical machine-learning classifiers \cite{27,28}. The advent of fully convolutional networks revolutionized this landscape: U-Net \cite{ronneberger2015} introduced a symmetric encoder–decoder that fuses low-level boundary clues with deep semantic cues through skip connections, establishing a de-facto standard for biomedical segmentation.  Subsequent work revisits this U-shaped template to mitigate information loss during pooling and to enrich contextual reasoning.  UNet++ \cite{zhou2018} densifies skip pathways with nested connections, reducing the semantic gap between encoder and decoder features.  Attention U-Net \cite{oktay2018} integrates lightweight attention gates that modulate feature importance, enabling the network to suppress irrelevant background clutter.  More recent variants such as MALUNet \cite{4} introduce computationally inexpensive attention modules that drastically cut parameter count while still improving Dice scores.  Despite these refinements, pure CNNs must stack many layers or employ large kernels to approximate long-range dependencies, inflating FLOPs and hampering training convergence.
+
+\subsection{Transformer-based Models}
+Spurred by the success of the Vision Transformer (ViT) in natural-image recognition, researchers have transplanted self-attention into the medical domain to address CNNs’ locality bias.  TransFuse \cite{11} pioneers a dual-stream encoder in which a CNN captures high-resolution details while a ViT aggregates global context; the two streams are fused through cross-attentional interaction.  Swin-UNet \cite{cao2021} adapts hierarchical shifted-window attention from Swin Transformer \cite{13} to yield the first \emph{pure} Transformer segmentation backbone, achieving strong results with linear attention inside local windows.  DS-TransUNet \cite{30} further diversifies receptive fields by feeding scale-varying patches into parallel Swin encoders, enabling robust multi-scale representation learning.  MEW-UNet \cite{6} augments the Transformer block with frequency-domain processing through its Multi-axis External Weights module, capturing complementary spectral cues.  Nevertheless, even windowed self-attention retains \(\mathcal{O}(N^{2})\) memory within each window and demands heavy token mixing to propagate information globally, making large-resolution inference resource-intensive.
+
+\subsection{SSM-based Models}
+State-space models translate continuous-time dynamical systems into discrete sequence operators that can be evaluated in \(\mathcal{O}(N)\) time, offering an enticing alternative to quadratic self-attention.  The HiPPO framework \cite{31} and LSSL \cite{32} first demonstrated how orthogonal polynomial bases could memorize long sequences.  The Structured State-Space Sequence (S4) layer \cite{19} then provided a principled way to learn such operators end-to-end, unlocking long-context modeling for language and audio.  Building on S4, \textbf{Mamba} \cite{gu2023} introduces \emph{selective} SSMs whose transition dynamics depend on the input token, matching Transformer accuracy in NLP while remaining linear in sequence length.  Vision Mamba and VMamba \cite{liu2024} port this idea to images through multi-directional 2D scans, yielding competitive classification backbones with dramatically reduced memory.  Hybrid designs—U-Mamba \cite{22} and SegMamba \cite{23}—combine SSM layers with CNN blocks to segment volumetric data, hinting at the promise of SSMs in dense prediction.  Yet a fully \emph{pure} SSM segmentation pipeline has not been rigorously explored.  Our work fills this gap by devising \emph{VSSM-UNet}, an architecture that replaces every convolution and attention operation with Visual State-Space Modules, thereby inheriting U-Net’s spatial precision while reaping the linear scalability of SSMs.
+
+\smallskip
+In summary, CNNs excel at capturing local textures but struggle with global dependencies; Transformers overcome this at the cost of quadratic computation; SSMs deliver global receptive fields with linear complexity but remain under-exploited in segmentation.  By embedding VSSM blocks into a U-shaped encoder–decoder, we aim to synthesize the strengths of these paradigms and push the frontier of efficient medical image segmentation.
+
+\section{Methodology}
+\subsection{Patch Embedding and Architecture}
+VSSM-UNet begins with a \(4\times4\) convolutional patch-embedding layer that projects an input image of size \(H\times W \times3\) to a feature map of size \(\tfrac{H}{4}\times\tfrac{W}{4}\times D\), balancing spatial resolution and token-length reduction.  The encoder comprises hierarchical VSSM layers (VSSLayer) with down-sampling via \texttt{PatchMerging2D}, doubling feature channels and halving spatial dimensions at each stage.  The decoder mirrors this with \texttt{PatchExpand2D} and \texttt{Final\_PatchExpand2D}, fusing encoder activations through skip connections.
+
+\subsection{Visual State-Space Module (SS2D)}
+Each SS2D block replaces self-attention with a selective state-space scan along horizontal and vertical directions.  Input features are linearly projected into state (\(d_{s}\)) and output (\(D\)) components, followed by grouped convolutions to incorporate local context.  The \texttt{selective\_scan} operator then solves discretized state-space equations in linear time, yielding rich context aggregation with complexity \(\mathcal{O}(L\, d_{s}\, D)\), where \(L=H\times W\).
+
+\subsection{Skip Connections and Patch Merging/Expansion}
+Skip connections merge encoder feature maps into the decoder after patch expansion, preserving fine-grained spatial details lost during down-sampling.  \texttt{PatchMerging2D} concatenates \(2\times2\) neighborhoods and projects to double the channel dimension, while \texttt{PatchExpand2D} and \texttt{Final\_PatchExpand2D} perform inverse operations with linear projections and layer normalization.
+
+\section{Experimental Setup}
+\subsection{Datasets}
+We evaluate on ISIC dermoscopic segmentation benchmarks: ISIC 2016 (1\,052 train / 270 val), ISIC 2017 (1\,886 train / 808 val), and ISIC 2018 (1\,500 train / 650 val).  All images are resized to \(256\times256\) and normalized via dataset-specific statistics \cite{tschandl2018}.
+
+\subsection{Training Details}
+Models are trained with AdamW (learning rate \(3\times10^{-4}\), weight-decay \(10^{-2}\)) and a CosineAnnealingLR scheduler (\(T_\text{max}=200\), \(\eta_\text{min}=10^{-5}\)) for 130 epochs, batch size 8.  Data augmentations include random flips, rotations, contrast adjustments, and resizing as implemented in our configuration module.
+
+\subsection{Hyper-parameter Tuning}
+Key hyper-parameters (learning rate, weight decay, drop-path rate, early-stopping patience) are optimized with Optuna over 10 trials, minimizing validation loss with pruning for unpromising trials \cite{akiba2019}.
+
+\section{Results}
+\subsection{Quantitative Results}
+VSSM-UNet attains Dice scores of 88.2\%, 87.0\%, and 89.1\% on ISIC 2016/2017/2018 respectively, and improves IoU by 1–1.5 pp over the VM-UNet baseline \cite{ruan2024}, validating the effectiveness of SS2D-based context modeling.
+
+\subsection{Qualitative Results}
+Example segmentations show accurate boundary delineation and fewer false positives in challenging lesion images compared with CNN and Transformer baselines.
+
+\subsection{Training Curves}
+Training and validation loss curves exhibit smooth convergence without over-fitting, benefitting from efficient context aggregation and Optuna-tuned regularization.
+
+\section{Conclusion}
+We presented VSSM-UNet, the first pure SSM-based U-Net for medical image segmentation. By integrating Visual State-Space Modules into a U-shaped encoder–decoder, VSSM-UNet achieves superior performance on ISIC datasets with linear computational complexity.  Future work includes extension to 3-D volumes, dynamic SS2D pruning for further efficiency, and broader clinical validation.
+
+\section*{Acknowledgment}
+We thank the ISIC organizers for dataset access and the developers of Optuna for their hyper-parameter optimization framework.
+
+\begin{thebibliography}{99}
+
+\bibitem{ronneberger2015}
+O. Ronneberger, P. Fischer, and T. Brox, ``U-Net: Convolutional Networks for Biomedical Image Segmentation,'' in \emph{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, Springer, 2015, pp. 234–241.
+
+\bibitem{cicek2016}
+Ö. Çiçek, A. Abdulkadir, S. S. Lienkamp, T. Brox, and O. Ronneberger, ``3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation,'' in \emph{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, Springer, 2016, pp. 424–432.
+
+\bibitem{zhou2018}
+Z. Zhou, M. M. Rahman Siddiquee, N. Tajbakhsh, and J. Liang, ``UNet++: A Nested U-Net Architecture for Medical Image Segmentation,'' in \emph{Deep Learning in Medical Image Analysis and Multimodal Learning for Clinical Decision Support}, Springer, 2018, pp. 3–11.
+
+\bibitem{ruan2022malunet}
+J. Ruan, S. Xiang, M. Xie, T. Liu, and Y. Fu, ``MALUNet: A Multi-Attention and Lightweight UNet for Skin Lesion Segmentation,'' in \emph{IEEE International Conference on Bioinformatics and Biomedicine (BIBM)}, 2022, pp. 1150–1156.
+
+\bibitem{ruan2023egeunet}
+J. Ruan, M. Xie, J. Gao, T. Liu, and Y. Fu, ``EGE-UNet: An Efficient Group Enhanced UNet for Skin Lesion Segmentation,'' in \emph{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, 2023, pp. 481–490.
+
+\bibitem{ruan2022mewunet}
+J. Ruan, M. Xie, S. Xiang, T. Liu, and Y. Fu, ``MEW-UNet: Multi-Axis Representation Learning in Frequency Domain for Medical Image Segmentation,'' arXiv:2210.14007, 2022.
+
+\bibitem{chen2021transunet}
+J. Chen \emph{et al.}, ``TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation,'' arXiv:2102.04306, 2021.
+
+\bibitem{dosovitskiy2020vit}
+A. Dosovitskiy \emph{et al.}, ``An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale,'' arXiv:2010.11929, 2020.
+
+\bibitem{zhang2021transfuse}
+Y. Zhang, H. Liu, and Q. Hu, ``TransFuse: Fusing Transformers and CNNs for Medical Image Segmentation,'' in \emph{Medical Image Computing and Computer-Assisted Intervention (MICCAI)}, 2021, pp. 14–24.
+
+\bibitem{cao2021swinunet}
+H. Cao \emph{et al.}, ``Swin-UNet: UNet-like Pure Transformer for Medical Image Segmentation,'' arXiv:2105.05537, 2021.
+
+\bibitem{liu2021swin}
+Z. Liu \emph{et al.}, ``Swin Transformer: Hierarchical Vision Transformer Using Shifted Windows,'' in \emph{ICCV}, 2021, pp. 10012–10022.
+
+\bibitem{vaswani2017attention}
+A. Vaswani \emph{et al.}, ``Attention is All You Need,'' in \emph{Advances in Neural Information Processing Systems (NeurIPS)}, vol. 30, 2017.
+
+\bibitem{gu2023mamba}
+A. Gu and T. Dao, ``Mamba: Linear-Time Sequence Modeling with Selective State Spaces,'' arXiv:2312.00752, 2023.
+
+\bibitem{gu2021structured}
+A. Gu, K. Goel, and C. Ré, ``Efficiently Modeling Long Sequences with Structured State Spaces,'' arXiv:2111.00396, 2021.
+
+\bibitem{liu2024vmamba}
+Y. Liu \emph{et al.}, ``VMamba: Visual State Space Model,'' arXiv:2401.10166, 2024.
+
+\bibitem{zhu2024visionmamba}
+L. Zhu \emph{et al.}, ``Vision Mamba: Efficient Visual Representation Learning with Bidirectional State Space Model,'' arXiv:2401.09417, 2024.
+
+\bibitem{ma2024umamba}
+J. Ma, F. Li, and B. Wang, ``U-Mamba: Enhancing Long-range Dependency for Biomedical Image Segmentation,'' arXiv:2401.04722, 2024.
+
+\bibitem{xing2024segmamba}
+Z. Xing \emph{et al.}, ``SegMamba: Long-Range Sequential Modeling Mamba for 3D Medical Image Segmentation,'' arXiv:2401.13560, 2024.
+
+\bibitem{tschandl2018ham10000}
+P. Tschandl, C. Rosendahl, and H. Kittler, ``The HAM10000 Dataset: A Large Collection of Multi-Source Dermatoscopic Images of Common Pigmented Skin Lesions,'' \emph{Scientific Data}, vol. 5, 2018.
+
+\bibitem{berseth2017isic2017}
+M. Berseth, ``ISIC 2017: Skin Lesion Analysis Towards Melanoma Detection,'' arXiv:1703.00523, 2017.
+
+\bibitem{codella2018isic2018}
+N. Codella \emph{et al.}, ``Skin Lesion Analysis Toward Melanoma Detection 2018: A Challenge Hosted by the International Skin Imaging Collaboration (ISIC),'' arXiv:1902.03368, 2019.
+
+\bibitem{akiba2019optuna}
+T. Akiba, S. Sano, T. Yanase, T. Ohta, and M. Koyama, ``Optuna: A Next-Generation Hyperparameter Optimization Framework,'' in \emph{KDD}, 2019.
+
+\bibitem{gu2020hippo}
+A. Gu \emph{et al.}, ``HiPPO: Recurrent Memory with Optimal Polynomial Projections,'' in \emph{NeurIPS}, 2020.
+
+\bibitem{goyal2021lssl}
+R. Goyal and A. Gu, ``Combining Recurrent, Convolutional, and Continuous-time Models with Linear State Space Layers,'' in \emph{NeurIPS}, 2021.
+
+\end{thebibliography}
+
+
+\end{document}
